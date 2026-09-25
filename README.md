@@ -4,11 +4,6 @@
 
 A minimal, production-grade execution engine for AI agents — written in pure Python with no agent framework dependencies. Event log, checkpointing, sandboxed tools, context hydration, routing, supervision, and human approval, wired together from scratch.
 
-![Python](https://img.shields.io/badge/Python-3.11+-blue?style=flat-square)
-![SQLite](https://img.shields.io/badge/Storage-SQLite-green?style=flat-square)
-
----
-
 ## Demo
 
 ![Demo 1](demo1.gif)
@@ -46,17 +41,17 @@ flowchart TD
 
 ## Components
 
-| File | Responsibility |
-|---|---|
-| `log.py` | Append-only SQLite event log — every call, result, and error in order |
-| `checkpoint.py` | Save and resume agent state — crash-safe, idempotent |
-| `sandbox.py` | Isolated tool executor — timeout, memory cap, no network by default |
-| `hydration.py` | Build each LLM prompt from stored state, not a growing chat history |
-| `router.py` | Route each step to the right model or sub-agent based on complexity |
-| `supervisor.py` | Watch for infinite loops, budget overruns, and stalled steps |
-| `approval.py` | Hard gate before destructive actions — pauses until human approves |
-| `runner.py` | Main loop wiring all seven components in sequence |
-| `tools.py` | Example sandboxed tools (search, code execution, email) |
+| File            | Responsibility                                                        |
+| --------------- | --------------------------------------------------------------------- |
+| `log.py`        | Append-only SQLite event log — every call, result, and error in order |
+| `checkpoint.py` | Save and resume agent state — crash-safe, idempotent                  |
+| `sandbox.py`    | Isolated tool executor — timeout, memory cap, no network by default   |
+| `hydration.py`  | Build each LLM prompt from stored state, not a growing chat history   |
+| `router.py`     | Route each step to the right model or sub-agent based on complexity   |
+| `supervisor.py` | Watch for infinite loops, budget overruns, and stalled steps          |
+| `approval.py`   | Hard gate before destructive actions — pauses until human approves    |
+| `runner.py`     | Main loop wiring all seven components in sequence                     |
+| `tools.py`      | Example sandboxed tools (search, code execution, email)               |
 
 ---
 
@@ -64,7 +59,7 @@ flowchart TD
 
 Every agent step runs through three parallel concerns:
 
-**Durability** — `event_log` → `checkpoint.load` → *(step)* → `checkpoint.save`  
+**Durability** — `event_log` → `checkpoint.load` → _(step)_ → `checkpoint.save`  
 **Safety** — `approval.gate` → `sandbox.execute` → `supervisor.watch`  
 **Intelligence** — `hydration.build` → `router.dispatch` → `llm_call` → `parse_tool_calls`
 
