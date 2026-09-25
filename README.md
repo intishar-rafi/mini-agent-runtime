@@ -9,6 +9,13 @@ A minimal, production-grade execution engine for AI agents — written in pure P
 
 ---
 
+## Demo
+
+![Demo 1](demo1.gif)
+![Demo 2](demo2.gif)
+
+---
+
 ## Architecture
 
 ```mermaid
